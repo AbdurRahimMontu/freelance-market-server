@@ -45,9 +45,16 @@ async function run() {
     res.send(result)
 })
 
+  app.post('/allJobs',async(req,res)=>{
+  const data = (req.body)
+  const result =await freelancer.insertOne(data)
+  res.send(result)
+ })
 
-
-
+app.get('/latestJobs', async(req,res)=>{
+const result=await freelancer.find().sort({postedDate: -1}).limit(6).toArray()
+res.send(result)
+})
 
 
 
