@@ -57,7 +57,11 @@ res.send(result)
 })
 
 
-
+ app.get('/myPostedJobs', async(req,res)=>{
+    const email = req.query.email
+    const result= await freelancer.find({email: email}).toArray()
+    res.send(result)
+  })
 
 
 
