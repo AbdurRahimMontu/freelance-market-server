@@ -44,6 +44,18 @@ async function run() {
     const result = await freelancer.findOne(query)
     res.send(result)
 })
+app.put('/updateJobs/:id', async(req,res)=>{
+  const id = req.params.id 
+  const data = req.body
+  const query = {_id: new ObjectId(id)}
+  const update ={
+    $set : data,
+
+  }
+
+  const result = await freelancer.updateOne(query,update)
+  res.send(result)
+ })
 
   app.post('/allJobs',async(req,res)=>{
   const data = (req.body)
