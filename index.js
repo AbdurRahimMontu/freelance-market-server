@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 require("dotenv").config()
 
-// middleware
+
 app.use(cors());
 app.use(express.json())
 
@@ -13,7 +13,6 @@ app.get('/', (req,res)=>{
     res.send('Server is running')
 })
 
-// mongodb user and password
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.juobova.mongodb.net/?appName=Cluster0`;
 
 const client = new MongoClient(uri, {
@@ -41,6 +40,7 @@ async function run() {
     const result = await freelancer.findOne(query)
     res.send(result)
 })
+
 app.put('/updateJobs/:id', async(req,res)=>{
   const id = req.params.id 
   const data = req.body
@@ -48,7 +48,6 @@ app.put('/updateJobs/:id', async(req,res)=>{
   const update ={
     $set : data,
   }
-
   const result = await freelancer.updateOne(query,update)
   res.send(result)
  })
@@ -80,7 +79,6 @@ app.delete('/allJobs/:id', async(req,res)=>{
 app.put("/allJobs/:id/accept", async (req, res) => {
   const id = req.params.id;
   const {userEmail} = req.body;
-
   const result = await freelancer.updateOne(
     { _id: new ObjectId(id) },
     { $addToSet: { acceptedBy: userEmail } } 
@@ -103,7 +101,6 @@ app.delete("/myAcceptedTasks/:id", async (req, res) => {
     { _id: new ObjectId(id) },
     { $pull: { acceptedBy: userEmail } }
   );
-
   res.send(result);
 });
 
