@@ -58,10 +58,16 @@ app.put('/updateJobs/:id', async(req,res)=>{
   res.send(result)
  })
 
-app.get('/latestJobs', async(req,res)=>{
-const result=await freelancer.find().sort({postedDate: -1}).limit(6).toArray()
-res.send(result)
-})
+app.get('/latestJobs', async (req, res) => {
+  const result = await freelancer
+    .find()
+    .sort({ postedDate: -1 })
+    .limit(8)
+    .toArray();
+
+  res.send(result);
+});
+
 
  app.get('/myPostedJobs', async(req,res)=>{
     const email = req.query.email
