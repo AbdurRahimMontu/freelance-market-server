@@ -28,6 +28,7 @@ async function run() {
     // await client.connect();
     const db = client.db('freelancerDB')
     const freelancer = db.collection('freelancers')
+    const usersCollection = db.collection('users')
 
  app.get('/allJobs', async (req,res)=>{
     const result = await freelancer.find().toArray()
@@ -106,6 +107,27 @@ app.delete("/myAcceptedTasks/:id", async (req, res) => {
   );
   res.send(result);
 });
+
+
+// Save or Update user in db
+  
+  app.post("/user", async(req,res)=>{
+    const userData = req.body;
+     console.log(userData);
+     res.send(userData)
+   
+  })
+
+
+
+
+
+
+
+
+
+
+
 
 
     // await client.db("admin").command({ ping: 1 });
